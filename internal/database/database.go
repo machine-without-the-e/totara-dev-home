@@ -12,8 +12,14 @@ type Database interface {
   CreateDatabase(name string) error
 }
 
-func GetDatabase(dbtype string, config config.DatabaseConfig) (Database, error) {
+func GetDatabase(dbtype string) (Database, error) {
   db, err := getDatabase(dbtype)
+
+  if (err != nil) {
+    return nil, err
+  }
+
+  config, err := config.GetConfig(dbtype);
 
   if (err != nil) {
     return nil, err
